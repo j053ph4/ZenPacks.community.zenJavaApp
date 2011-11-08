@@ -26,7 +26,6 @@ class JavaAppMap(PythonPlugin):
     
     def queryRemote(self,server,port,username,password,mbean=None,attribute=None):
         binPath = zenPath('libexec')
-        #authstring = username+":"+password
         authstring = '-'
         deststring = server+":"+str(port)
         jarfile = binPath + "/cmdline-jmxclient"
@@ -36,17 +35,16 @@ class JavaAppMap(PythonPlugin):
         output = Popen(args,stderr=STDOUT,stdout=PIPE).communicate()[0]
         return output  
     
-    def getClientPorts(self,device):
+    def getClientPorts(self,device,log):
         validPorts = []
         for port in device.zJavaAppPorts:
-            print "testing port",port
+            log.info('Testing port %s for device %s', port, device.id)
             output = self.queryRemote(device.id,
                                       port,
                                       device.zJmxUsername,
                                       device.zJmxPassword)
             valid = False
             for line in output.split('\n'):
-                print line
                 if re.search('Connection refused',line) != None :
                     valid = False
                     break
@@ -62,7 +60,7 @@ class JavaAppMap(PythonPlugin):
     
     def collect(self, device, log):
         results = []
-        ports = self.getClientPorts(device)
+        ports = self.getClientPorts(device,log)
         for port in ports:
             info = {}
             name = "java_"+port
@@ -70,6 +68,7 @@ class JavaAppMap(PythonPlugin):
             info['javaPort'] = port
             info['javaUser'] = device.zJmxUsername
             info['javaPass'] = device.zJmxPassword
+            #info['javaAuth'] = True
             results.append(info)
         return results
 

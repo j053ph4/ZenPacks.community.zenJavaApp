@@ -3,10 +3,10 @@ from Products.Zuul.interfaces.component import IComponentInfo
 from Products.Zuul.utils import ZuulMessageFactory as _t
 
 class IJavaAppInfo(IComponentInfo):
-    javaPort = schema.Text(title=u"Port")
-    javaUser = schema.Text(title=u"User",readonly=False,group='Details')
-    javaPass = schema.Text(title=u"Password",readonly=False,group='Details')
-
+    javaPort = schema.Text(title=u"Port",readonly=True,group='Details')
+    javaUser = schema.Text(title=u"User",group='Details')
+    javaPass = schema.Text(title=u"Password",group='Details')
+    javaAuth = schema.Bool(title=u"Authenticate",group='Details')
 
 
 

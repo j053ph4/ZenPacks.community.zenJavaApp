@@ -11,6 +11,7 @@ class JavaAppInfo(ComponentInfo):
     javaPort = ProxyProperty("javaPort")
     javaUser = ProxyProperty("javaUser")
     javaPass = ProxyProperty("javaPass")
+    javaAuth = ProxyProperty("javaAuth")
 
     
     

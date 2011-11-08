@@ -38,7 +38,7 @@ jmxrmi
 java.lang:type=MemoryPool,name=CMS Old Gen
 </property>
 <property type="string" id="authenticate" mode="w" >
-${here/zJmxAuthenticate}
+${here/javaAuth}
 </property>
 <property type="string" id="username" mode="w" >
 ${here/javaUser}
@@ -100,7 +100,7 @@ jmxrmi
 java.lang:type=MemoryPool,name=CMS Perm Gen
 </property>
 <property type="string" id="authenticate" mode="w" >
-${here/zJmxAuthenticate}
+${here/javaAuth}
 </property>
 <property type="string" id="username" mode="w" >
 ${here/javaUser}
@@ -162,7 +162,7 @@ jmxrmi
 java.lang:type=Memory
 </property>
 <property type="string" id="authenticate" mode="w" >
-${here/zJmxAuthenticate}
+${here/javaAuth}
 </property>
 <property type="string" id="username" mode="w" >
 ${here/javaUser}
@@ -240,7 +240,7 @@ jmxrmi
 java.lang:type=ClassLoading
 </property>
 <property type="string" id="authenticate" mode="w" >
-${here/zJmxAuthenticate}
+${here/javaAuth}
 </property>
 <property type="string" id="username" mode="w" >
 ${here/javaUser}
@@ -294,7 +294,7 @@ jmxrmi
 java.lang:type=Memory
 </property>
 <property type="string" id="authenticate" mode="w" >
-${here/zJmxAuthenticate}
+${here/javaAuth}
 </property>
 <property type="string" id="username" mode="w" >
 ${here/javaUser}
@@ -372,7 +372,7 @@ jmxrmi
 java.lang:type=OperatingSystem
 </property>
 <property type="string" id="authenticate" mode="w" >
-${here/zJmxAuthenticate}
+${here/javaAuth}
 </property>
 <property type="string" id="username" mode="w" >
 ${here/javaUser}
@@ -426,7 +426,7 @@ jmxrmi
 java.lang:type=Threading
 </property>
 <property type="string" id="authenticate" mode="w" >
-${here/zJmxAuthenticate}
+${here/javaAuth}
 </property>
 <property type="string" id="username" mode="w" >
 ${here/javaUser}

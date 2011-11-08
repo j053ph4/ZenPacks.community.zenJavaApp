@@ -21,12 +21,14 @@ class JavaApp(DeviceComponent, ManagedEntity):
     javaPort = ''
     javaUser = ''
     javaPass = ''
+    javaAuth = True
     status = 1
 
     _properties = ManagedEntity._properties + (
         {'id':'javaPort', 'type':'string', 'mode':''},         
         {'id':'javaUser', 'type':'string', 'mode':''},
         {'id':'javaPass', 'type':'string', 'mode':''},
+        {'id':'javaAuth', 'type':'boolean', 'mode':''},
         {'id':'status', 'type':'int', 'mode':''},
     )
     
@@ -46,6 +48,11 @@ class JavaApp(DeviceComponent, ManagedEntity):
             'permissions': (ZEN_CHANGE_DEVICE,),
         },),
     },)
+    
+    isUserCreatedFlag = True
+    
+    def isUserCreated(self):
+        return self.isUserCreatedFlag
     
     def viewName(self):
         return self.javaPort
