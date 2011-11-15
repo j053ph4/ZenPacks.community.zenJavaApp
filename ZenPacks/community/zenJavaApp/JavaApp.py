@@ -34,7 +34,7 @@ class JavaApp(DeviceComponent, ManagedEntity):
     
     _relations = ManagedEntity._relations + (
         ('javaHost', ToOne(ToManyCont,
-            'ZenPacks.community.zenJavaApp.JavaHost.JavaHost',
+            'Products.ZenModel.Device.Device',
             'javaApp',
             ),
         ),

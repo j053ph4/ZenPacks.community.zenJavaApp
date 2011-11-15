@@ -1,6 +1,6 @@
 ######################################################################
 #
-# JmxComponent modeler plugin
+# JavaAppMap modeler plugin
 #
 ######################################################################
 from Products.DataCollector.plugins.CollectorPlugin import PythonPlugin
@@ -24,27 +24,23 @@ class JavaAppMap(PythonPlugin):
                     'manageIp',
                     )
     
-    def queryRemote(self,server,port,username,password,mbean=None,attribute=None):
+    def queryRemote(self,server,port,log):
         binPath = zenPath('libexec')
         authstring = '-'
         deststring = server+":"+str(port)
         jarfile = binPath + "/cmdline-jmxclient"
-        args = ['/usr/bin/java','-jar',jarfile,authstring,deststring]
-        if mbean != None and attribute != None:
-            args = ['/usr/bin/java','-jar',jarfile,authstring,deststring,mbean,attribute]
-        output = Popen(args,stderr=STDOUT,stdout=PIPE).communicate()[0]
-        return output  
+        args = '/usr/bin/java -jar '+jarfile+' '+authstring+' '+deststring
+        #log.info('Running command %s', args)
+        output = Popen([args],stdout=PIPE,stderr=STDOUT,shell=True)
+        return output.stdout.readlines()
     
     def getClientPorts(self,device,log):
         validPorts = []
-        for port in device.zJavaAppPorts:
-            log.info('Testing port %s for device %s', port, device.id)
-            output = self.queryRemote(device.id,
-                                      port,
-                                      device.zJmxUsername,
-                                      device.zJmxPassword)
+        for jmxPort in device.zJavaAppPorts:
+            log.info('Testing port %s for device %s', jmxPort, device.id)
+            output = self.queryRemote(device.id, jmxPort, log)
             valid = False
-            for line in output.split('\n'):
+            for line in output:
                 if re.search('Connection refused',line) != None :
                     valid = False
                     break
@@ -55,20 +51,21 @@ class JavaAppMap(PythonPlugin):
                     valid = True
                     break
             if valid == True:
-                validPorts.append(port)
+                log.info('JMX client found on port %s',jmxPort)
+                validPorts.append(jmxPort)
         return validPorts
     
     def collect(self, device, log):
         results = []
-        ports = self.getClientPorts(device,log)
-        for port in ports:
+        jmxPorts = self.getClientPorts(device,log)
+        for jmxPort in jmxPorts:
+            log.info('creating component for port %s',jmxPort)
             info = {}
-            name = "java_"+port
+            name = "java_"+jmxPort
             info['id'] = prepId(name)
-            info['javaPort'] = port
+            info['javaPort'] = jmxPort
             info['javaUser'] = device.zJmxUsername
             info['javaPass'] = device.zJmxPassword
-            #info['javaAuth'] = True
             results.append(info)
         return results
 
