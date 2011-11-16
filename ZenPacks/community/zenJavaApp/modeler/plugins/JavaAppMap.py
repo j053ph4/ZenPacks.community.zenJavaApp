@@ -40,6 +40,7 @@ class JavaAppMap(PythonPlugin):
             log.info('Testing port %s for device %s', jmxPort, device.id)
             output = self.queryRemote(device.id, jmxPort, log)
             valid = False
+            needAuth = True
             for line in output:
                 if re.search('Connection refused',line) != None :
                     valid = False
@@ -50,15 +51,19 @@ class JavaAppMap(PythonPlugin):
                 if re.search('Authentication failed',line) != None :
                     valid = True
                     break
+                if re.search('java\.lang:type=Memory',line) != None :
+                    valid = True
+                    needAuth = False
+                    break
             if valid == True:
                 log.info('JMX client found on port %s',jmxPort)
-                validPorts.append(jmxPort)
+                validPorts.append((jmxPort,needAuth))
         return validPorts
     
     def collect(self, device, log):
         results = []
         jmxPorts = self.getClientPorts(device,log)
-        for jmxPort in jmxPorts:
+        for jmxPort,needAuth in jmxPorts:
             log.info('creating component for port %s',jmxPort)
             info = {}
             name = "java_"+jmxPort
@@ -66,6 +71,7 @@ class JavaAppMap(PythonPlugin):
             info['javaPort'] = jmxPort
             info['javaUser'] = device.zJmxUsername
             info['javaPass'] = device.zJmxPassword
+            info['javaAuth'] = needAuth
             results.append(info)
         return results
 
