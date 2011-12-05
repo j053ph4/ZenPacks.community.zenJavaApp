@@ -1,8 +1,6 @@
 ################################################################################
 #
-# This program is part of the JmxAppMonitor Zenpack for Zenoss.
-# Copyright (C) 2009 ATX Group, Inc.
-#
+# This program is part of the zenJavaApplication Zenpack for Zenoss.
 # This program can be used under the GNU General Public License version 2
 # You can find full information here: http://www.zenoss.com/oss
 #
@@ -69,6 +67,10 @@ class JavaApp(DeviceComponent, ManagedEntity):
     def device(self):
         return self.javaHost()
     
-    def monitored(self):
-        return True
-
+    def manage_deleteComponent(self, REQUEST=None):
+        url = None
+        if REQUEST is not None:
+            url = self.device().javaApps.absolute_url()
+        self.getPrimaryParent()._delObject(self.id)
+        if REQUEST is not None:
+            REQUEST['RESPONSE'].redirect(url)
