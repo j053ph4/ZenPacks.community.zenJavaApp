@@ -33,8 +33,9 @@ ZC.JavaAppPanel = Ext.extend(ZC.ComponentGridPanel, {
               	{name: 'uid'},
                 {name: 'severity'},
                 {name: 'status'},
-				{name: 'name'},
+                {name: 'name'},
                 {name: 'javaPort'},
+                {name: 'usesMonitorAttribute'},
                 {name: 'monitor'},
                 {name: 'monitored'},
                 {name: 'locking'}
