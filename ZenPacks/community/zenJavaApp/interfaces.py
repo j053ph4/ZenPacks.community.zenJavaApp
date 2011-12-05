@@ -5,7 +5,7 @@ from Products.Zuul.utils import ZuulMessageFactory as _t
 class IJavaAppInfo(IComponentInfo):
     javaPort = schema.Text(title=u"Port",readonly=True,group='Details')
     javaUser = schema.Text(title=u"User",group='Details')
-    javaPass = schema.Text(title=u"Password",group='Details')
+    javaPass = schema.Password(title=u"Password",group='Details')
     javaAuth = schema.Bool(title=u"Authenticate",group='Details')
 
 
