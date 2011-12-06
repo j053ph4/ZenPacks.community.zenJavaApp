@@ -31,9 +31,14 @@ class JavaAppMap(PythonPlugin):
         jarfile = binPath + "/cmdline-jmxclient"
         args = '/usr/bin/java -jar '+jarfile+' '+authstring+' '+deststring
         #log.info('Running command %s', args)
-        output = Popen([args],stdout=PIPE,stderr=STDOUT,shell=True)
-        return output.stdout.readlines()
-    
+        try:
+          output = Popen([args],stdout=PIPE,stderr=STDOUT,shell=True)
+          return output.communicate()
+        except Exception as e:
+          #print "Error: ", type(e)
+          #print e
+          return False
+
     def getClientPorts(self,device,log):
         validPorts = []
         for jmxPort in device.zJavaAppPorts:
@@ -41,9 +46,14 @@ class JavaAppMap(PythonPlugin):
             output = self.queryRemote(device.id, jmxPort, log)
             valid = False
             needAuth = True
-            for line in output:
+            if output != False :
+              for line in output:
                 if re.search('Connection refused',line) != None :
                     valid = False
+                    break
+                log.debug(line)
+                if re.search('java\.lang:type=Memory',line) != None :
+                    valid = True
                     break
                 if re.search('Invalid credentials',line) != None :
                     valid = True
