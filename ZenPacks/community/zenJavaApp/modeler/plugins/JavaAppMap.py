@@ -16,27 +16,24 @@ class JavaAppMap(PythonPlugin):
 
     relname = "javaApps"
     modname = "ZenPacks.community.zenJavaApp.JavaApp"
-    
+
     deviceProperties = PythonPlugin.deviceProperties + (
                     'zJmxUsername',
                     'zJmxPassword',
                     'zJavaAppPorts',
                     'manageIp',
                     )
-    
+
     def queryRemote(self,server,port,log):
         binPath = zenPath('libexec')
         authstring = '-'
         deststring = server+":"+str(port)
         jarfile = binPath + "/cmdline-jmxclient"
         args = '/usr/bin/java -jar '+jarfile+' '+authstring+' '+deststring
-        #log.info('Running command %s', args)
         try:
           output = Popen([args],stdout=PIPE,stderr=STDOUT,shell=True)
           return output.communicate()
         except Exception as e:
-          #print "Error: ", type(e)
-          #print e
           return False
 
     def getClientPorts(self,device,log):
@@ -69,7 +66,7 @@ class JavaAppMap(PythonPlugin):
                 log.info('JMX client found on port %s',jmxPort)
                 validPorts.append((jmxPort,needAuth))
         return validPorts
-    
+
     def collect(self, device, log):
         results = []
         jmxPorts = self.getClientPorts(device,log)
