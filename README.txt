@@ -47,6 +47,15 @@ Change History:
         removed Device class "/Server/Linux/Java"
     1.2
         Revised modeler plugin and corrected issue when run from zenmodeler
+    1.3
+
+        Added support for monitor flag in component menu
+        Added support for manual deletion of components
+        Removed clear text display of password on Component Details pane
+
+    1.4
+
+        Using different python method to extract JMX output from cmdline utility
 
 Tested: This ZenPack was tested with versions 3.2.1.
 
