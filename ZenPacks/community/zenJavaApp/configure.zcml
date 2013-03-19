@@ -1,28 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<configure xmlns="http://namespaces.zope.org/zope"
-           xmlns:browser="http://namespaces.zope.org/browser"
-           xmlns:zcml="http://namespaces.zope.org/zcml">
+    <configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:browser="http://namespaces.zope.org/browser"
+        xmlns:zcml="http://namespaces.zope.org/zcml">
+        <configure zcml:condition="installed Products.Zuul">
 
-    <configure zcml:condition="installed Products.Zuul">
+            <!-- Component Info -->
+            <adapter factory=".info.JavaAppInfo"
+                for=".JavaApp.JavaApp"
+                provides=".interfaces.IJavaAppInfo"
+            />
+    
+            <!-- Import directRouter Directive -->
+            <include package="Products.ZenUtils.extdirect.zope" file="meta.zcml"/>
+    
+            <browser:directRouter
+                name="zenJavaApp_router"
+                for="*"
+                class=".routers.zenJavaAppRouter"
+                namespace="Zenoss.remote"
+                permission="zenoss.View"
+            />
+    
+            <adapter
+                name="zenJavaAppAdapter"
+                provides=".interfaces.IzenJavaAppFacade"
+                for="*"
+                factory=".facades.zenJavaAppFacade"
+            />
+                
+            <!-- Javascript stuff -->
+            <browser:resourceDirectory
+                    name="zenJavaApp"
+                    directory="resources"
+            />
+                
+            <browser:viewlet
+                name="js-zenJavaApp"
+                paths="/++resource++zenJavaApp/javaapp.js"
+                weight="10"
+                manager="Products.ZenUI3.browser.interfaces.IJavaScriptSrcManager"
+                class="Products.ZenUI3.browser.javascript.JavaScriptSrcBundleViewlet"
+                permission="zope2.Public"
+            />
+            
+            <browser:viewlet
+                  name="component-add-menu-javaapp"
+                  paths="/++resource++zenJavaApp/javaapp-add.js"
+                  weight="9"
+                  for="Products.ZenModel.Device.Device"
+                  manager="Products.ZenUI3.browser.interfaces.IHeadExtraManager"
+                  class="Products.ZenUI3.browser.javascript.JavaScriptSrcBundleViewlet"
+                  permission="zope2.Public"
+            />
 
-        <adapter factory=".info.JavaAppInfo"
-                 for=".JavaApp.JavaApp"
-                 provides=".interfaces.IJavaAppInfo"
-                 />
+        
+        </configure>
+    </configure>
 
-        <browser:resourceDirectory
-                 name="zenJavaApplication"
-                 directory="resources"
-                 />
-
-        <browser:viewlet
-                 name="js-zenJavaApplication"
-                 paths="/++resource++zenJavaApplication/javaapp.js"
-                 weight="10"
-                 manager="Products.ZenUI3.browser.interfaces.IJavaScriptSrcManager"
-                 class="Products.ZenUI3.browser.javascript.JavaScriptSrcBundleViewlet"
-                 permission="zope2.Public"
-                 />
-
-	</configure>
-</configure>

@@ -1,76 +1,61 @@
-################################################################################
-#
-# This program is part of the zenJavaApplication Zenpack for Zenoss.
-# This program can be used under the GNU General Public License version 2
-# You can find full information here: http://www.zenoss.com/oss
-#
-################################################################################
-from Products.ZenModel.DeviceComponent import DeviceComponent
+from Products.ZenModel.OSComponent import OSComponent
+from Products.ZenModel.ZenPackPersistence import ZenPackPersistence
 from Products.ZenModel.ManagedEntity import ManagedEntity
-from Products.ZenModel.ZenossSecurity import ZEN_CHANGE_DEVICE
-from Products.ZenRelations.RelSchema import ToManyCont, ToOne
+from Products.ZenRelations.RelSchema import *
 
-class JavaApp(DeviceComponent, ManagedEntity):
-    """
-    JavaApp models a java application server as a device component
-    """
-    meta_type = portal_type = "JavaApp"
+'''
+args:  classname,classname,properties,_properties,relname,sortkey,viewname
+'''
+
+class JavaApp(OSComponent, ManagedEntity, ZenPackPersistence):
+    '''
+    	basic Component class
+    '''
     
-    javaPort = ''
-    javaUser = ''
-    javaPass = ''
-    javaAuth = True
-    status = 1
+    portal_type = meta_type = 'JavaApp'
+    
+    isWorking = False
+    oGen = 'java.lang:type=MemoryPool,name=CMS Old Gen'
+    user = None
+    validGen = False
+    pGen = 'java.lang:type=MemoryPool,name=CMS Perm Gen'
+    password = None
+    port = '80'
+    auth = False
 
-    _properties = ManagedEntity._properties + (
-        {'id':'javaPort', 'type':'string', 'mode':''},         
-        {'id':'javaUser', 'type':'string', 'mode':''},
-        {'id':'javaPass', 'type':'string', 'mode':''},
-        {'id':'javaAuth', 'type':'boolean', 'mode':''},
-        {'id':'status', 'type':'int', 'mode':''},
+    _properties = (
+    {'id': 'isWorking', 'type': 'boolean','mode': '', 'switch': 'None' },
+    {'id': 'oGen', 'type': 'string','mode': '', 'switch': 'None' },
+    {'id': 'user', 'type': 'string','mode': '', 'switch': 'None' },
+    {'id': 'validGen', 'type': 'boolean','mode': '', 'switch': 'None' },
+    {'id': 'pGen', 'type': 'string','mode': '', 'switch': 'None' },
+    {'id': 'password', 'type': 'string','mode': '', 'switch': 'None' },
+    {'id': 'port', 'type': 'string','mode': '', 'switch': 'None' },
+    {'id': 'auth', 'type': 'boolean','mode': '', 'switch': 'None' },
+
     )
     
-    _relations = ManagedEntity._relations + (
-        ('javaHost', ToOne(ToManyCont,
-            'Products.ZenModel.Device.Device',
-            'javaApp',
-            ),
-        ),
-    )
+    _relations = OSComponent._relations + (
+        ('os', ToOne(ToManyCont, 'Products.ZenModel.OperatingSystem', 'javaApps')),
+        )
 
-    factory_type_information = ({
-        'actions': ({
-            'id': 'perfConf',
-            'name': 'Template',
-            'action': 'objTemplates',
-            'permissions': (ZEN_CHANGE_DEVICE,),
-        },),
-    },)
-    
     isUserCreatedFlag = True
-    
     def isUserCreated(self):
         return self.isUserCreatedFlag
-    
-    def viewName(self):
-        return self.javaPort
-    
-    titleOrId = name = viewName
-
-    def primarySortKey(self):
-        return self.javaPort
-
-    def getStatus(self):
+        
+    def statusMap(self):
         self.status = 0
         return self.status
     
-    def device(self):
-        return self.javaHost()
+    def getStatus(self):
+        return self.statusMap()
     
-    def manage_deleteComponent(self, REQUEST=None):
-        url = None
-        if REQUEST is not None:
-            url = self.device().javaApps.absolute_url()
-        self.getPrimaryParent()._delObject(self.id)
-        if REQUEST is not None:
-            REQUEST['RESPONSE'].redirect(url)
+    def primarySortKey(self):
+        return self.port
+    
+    def viewName(self):
+        return self.port
+    
+    name = titleOrId = viewName
+
+
