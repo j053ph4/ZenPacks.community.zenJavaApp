@@ -27,13 +27,12 @@ ZenPack installation.
 
 Requirements:
 
-    Zenoss Versions Supported: 3.0
+    Zenoss Versions Supported: 3.x, 4.x
     External Dependencies: None
     ZenPack Dependencies:
     Installation Notes: zopectl restart; zenhub restart after installing this
 ZenPack.
-    Configuration: zJavaAppPorts needs to be populated with a list of ports to
-scan
+    Configuration: zJavaAppPortRange needs to be populated with a range of ports to scan
 
 History:
 
@@ -48,18 +47,22 @@ Change History:
     1.2
         Revised modeler plugin and corrected issue when run from zenmodeler
     1.3
-
         Added support for monitor flag in component menu
         Added support for manual deletion of components
         Removed clear text display of password on Component Details pane
-
     1.4
-
         Using different python method to extract JMX output from cmdline utility
+2.0
+    added Zenoss 4.X support
+    new dependency on "ConstructionKit" ZenPack to simplify current/future development
+    <https://github.com/j053ph4/ZenPacks.community.ConstructionKit>
+    modeler plugin uses nmap-based method to scan and profile ports within a given range.
 
-Tested: This ZenPack was tested with versions 3.2.1.
+Tested
+======
+This ZenPack was tested with versions 3.2.1, 4.2.3
 
 Source:
-https://github.com/zenoss/Community-Zenpacks/tree/master/ZenPacks.community.zenJavaApp
+https://github.com/j053ph4/ZenPacks.community.zenJavaApp
 
 Known issues:  
