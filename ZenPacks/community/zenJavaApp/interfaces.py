@@ -25,7 +25,7 @@ class IJavaAppInfo(IComponentInfo):
     user = SingleLineText(title=_t(u'User'))
     validGen = schema.Bool(title=_t(u'POST'))
     pGen = SingleLineText(title=_t(u'Perm Gen'))
-    password = SingleLineText(title=_t(u'Password'))
+    password = schema.Password(title=_t(u'Password'))
     port = SingleLineText(title=_t(u'Port'))
     auth = schema.Bool(title=_t(u'Authenticate'))
 

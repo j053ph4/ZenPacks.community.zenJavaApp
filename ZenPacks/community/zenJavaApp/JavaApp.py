@@ -29,7 +29,7 @@ class JavaApp(OSComponent, ManagedEntity, ZenPackPersistence):
     {'id': 'user', 'type': 'string','mode': '', 'switch': 'None' },
     {'id': 'validGen', 'type': 'boolean','mode': '', 'switch': 'None' },
     {'id': 'pGen', 'type': 'string','mode': '', 'switch': 'None' },
-    {'id': 'password', 'type': 'string','mode': '', 'switch': 'None' },
+    {'id': 'password', 'type': 'password','mode': '', 'switch': 'None' },
     {'id': 'port', 'type': 'string','mode': '', 'switch': 'None' },
     {'id': 'auth', 'type': 'boolean','mode': '', 'switch': 'None' },
 
@@ -51,7 +51,7 @@ class JavaApp(OSComponent, ManagedEntity, ZenPackPersistence):
         return self.statusMap()
     
     def primarySortKey(self):
-        return self.port
+        return self.id
     
     def viewName(self):
         return self.port

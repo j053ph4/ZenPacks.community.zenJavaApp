@@ -14,15 +14,15 @@ class Definition():
     componentData = {
                   'singular': 'Java Application',
                   'plural': 'Java Applications',
-                  'displayed': 'port', # component field in Event Console
-                  'primaryKey': 'port',
+                  'displayed': 'id', # component field in Event Console
+                  'primaryKey': 'id',
                   'properties': { 
                         # Basic settings
                         'port' : addProperty('Port','Basic','80',optional='false'),
                         # Authentication
                         'auth': addProperty('Authenticate','Authentication', False, ptype='boolean'),
                         'user' : addProperty('User','Authentication'),
-                        'password' : addProperty('Password','Authentication'),
+                        'password' : addProperty('Password','Authentication',ptype='password'),
                         # Misc
                         'oGen' : addProperty('Old Gen','Gen','java.lang:type=MemoryPool,name=CMS Old Gen'),
                         'pGen' : addProperty('Perm Gen','Gen','java.lang:type=MemoryPool,name=CMS Perm Gen'),
@@ -32,7 +32,7 @@ class Definition():
                   }
     
     packZProperties = [
-        ('zJavaAppPortRange', '', 'string'),
+        ('zJavaAppPortRange', '1000-50000', 'string'),
         ]
     #dictionary of datasources
     createDS = False

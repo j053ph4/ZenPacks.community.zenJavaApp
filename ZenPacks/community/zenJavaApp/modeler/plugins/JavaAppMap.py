@@ -1,6 +1,7 @@
 from Products.DataCollector.plugins.CollectorPlugin import PythonPlugin
 from Products.DataCollector.plugins.DataMaps import ObjectMap
 from Products.ZenUtils.Utils import zenPath,prepId
+from ZenPacks.community.zenJavaApp.Definition import *
 import re,os,time,random
 from subprocess import *
 
@@ -135,9 +136,12 @@ class JavaAppScan():
 class JavaAppMap(PythonPlugin):
     """Map JMX Client output table to model."""
     
+    constr = Construct(Definition)
+    
     compname = "os"
-    relname = "javaApps"
-    modname = "ZenPacks.community.zenJavaApp.JavaApp"
+    relname = constr.relname
+    modname = constr.zenpackComponentModule
+    baseid = constr.baseid
 
     deviceProperties = PythonPlugin.deviceProperties + (
                     'zJmxUsername',
@@ -145,7 +149,6 @@ class JavaAppMap(PythonPlugin):
                     'zJavaAppPortRange',
                     'manageIp',
                     )
-    
 
     def getGenType(self, port, auth, info, log):
         """ find number of currently connected clients
@@ -174,7 +177,6 @@ class JavaAppMap(PythonPlugin):
                                 device.zJmxUsername, 
                                 device.zJmxPassword)
         self.scan.evalPorts()
-        print "PORTS",self.scan.portdict
         #self.evalPorts(device,log)
         output = []
         for port in self.scan.portdict.keys():
@@ -184,7 +186,7 @@ class JavaAppMap(PythonPlugin):
                 log.debug('Testing for Oldgem/Permgem type at %s:%s' % (device.id, port))
                 #lines = self.scan.jmxQuery(port, auth)
                 info = {}
-                name = "java_"+port
+                name = "%s_%s" % (self.baseid,str(port))
                 info['id'] = prepId(name)
                 info['port'] = port
                 info['auth'] = entry['useAuth']
@@ -210,6 +212,7 @@ class JavaAppMap(PythonPlugin):
         rm = self.relMap()
         for result in results:
             om = self.objectMap(result)
+            om.monitor = result['isWorking']
             rm.append(om)
         return rm
 

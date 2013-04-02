@@ -21,7 +21,7 @@ class zenJavaAppFacade(ZuulFacade):
         from Products.ZenUtils.Utils import prepId
         from ZenPacks.community.zenJavaApp.JavaApp import JavaApp
         import re
-        cid = ''
+        cid = 'javaapp' 
         for k,v in kwargs.iteritems():
             if type(v) != bool:
                 cid += str(v)
