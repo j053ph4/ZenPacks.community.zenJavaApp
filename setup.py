@@ -3,7 +3,7 @@
 # or saved.  Do not modify them directly here.
 # NB: PACKAGES is deprecated
 NAME = "ZenPacks.community.zenJavaApp"
-VERSION = "2.0"
+VERSION = "2.1"
 AUTHOR = "Joseph Anderson"
 LICENSE = "Apache"
 NAMESPACE_PACKAGES = ['ZenPacks', 'ZenPacks.community']

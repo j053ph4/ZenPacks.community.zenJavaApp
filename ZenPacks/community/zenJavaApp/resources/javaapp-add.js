@@ -1,3 +1,4 @@
+
 (function() {
         
             function getPageContext() {
@@ -21,16 +22,9 @@
                                 labelAlign: 'top',
                                 footerStyle: 'padding-left: 0',
                                 border: false,
-                                items: [
-                {
-                xtype: 'textfield',
-                name: 'port',
-                fieldLabel: _t('Port'),
-                id: "portField",
-                width: 260,
-                allowBlank: false,
-                },
-                ],
+                                items:                         []
+
+                                ,
                                 buttons: [{
                                     xtype: 'DialogButton',
                                     id: 'zenJavaApp-submit',
@@ -47,8 +41,11 @@
                                                     message: response.msg,
                                                     buttons: [{
                                                         xtype: 'DialogButton',
-                                                        text: _t('OK')
-                                                    }]
+                                                        text: _t('OK'),
+                                                        handler: function() { 
+                                                            window.top.location.reload();
+                                                            }
+                                                        }]
                                                 }).show();
                                             }
                                             else {
@@ -56,8 +53,11 @@
                                                     message: response.msg,
                                                     buttons: [{
                                                         xtype: 'DialogButton',
-                                                        text: _t('OK')
-                                                    }]
+                                                        text: _t('OK'),
+                                                        handler: function() { 
+                                                            window.top.location.reload();
+                                                            }
+                                                        }]
                                                 }).show();
                                             }
                                         });
