@@ -14,10 +14,10 @@
         return ob; 
     }
     
-    ZC.JavaAppPanel = Ext.extend(ZC.ComponentGridPanel, {
+    ZC.JavaGarbageCollectorPanel = Ext.extend(ZC.ComponentGridPanel, {
         constructor: function(config) {
             config = Ext.applyIf(config||{}, {
-                componentType: 'JavaApp',
+                componentType: 'JavaGarbageCollector',
                 autoExpandColumn: 'name', 
                 fields:                 [
                     {
@@ -36,13 +36,10 @@
                         "name": "getIpserviceLink"
                     }, 
                     {
-                        "name": "getOsprocessLink"
+                        "name": "getJavaappLink"
                     }, 
                     {
-                        "name": "javaversion"
-                    }, 
-                    {
-                        "name": "vendorproduct"
+                        "name": "mbean"
                     }, 
                     {
                         "name": "usesMonitorAttribute"
@@ -85,26 +82,18 @@
                     {
                         "sortable": "true", 
                         "width": 120, 
-                        "header": "OS Process", 
+                        "header": "Java App", 
                         "renderer": "pass_link", 
-                        "id": "getOsprocessLink", 
-                        "dataIndex": "getOsprocessLink"
+                        "id": "getJavaappLink", 
+                        "dataIndex": "getJavaappLink"
                     }, 
                     {
                         "sortable": "true", 
                         "width": 120, 
-                        "header": "Java Version", 
+                        "header": "MBean", 
                         "renderer": "pass_link", 
-                        "id": "javaversion", 
-                        "dataIndex": "javaversion"
-                    }, 
-                    {
-                        "sortable": "true", 
-                        "width": 120, 
-                        "header": "JVM Version", 
-                        "renderer": "pass_link", 
-                        "id": "vendorproduct", 
-                        "dataIndex": "vendorproduct"
+                        "id": "mbean", 
+                        "dataIndex": "mbean"
                     }, 
                     {
                         "header": "Monitored", 
@@ -124,12 +113,12 @@
                 ]
 
             });
-            ZC.JavaAppPanel.superclass.constructor.call(this, config);
+            ZC.JavaGarbageCollectorPanel.superclass.constructor.call(this, config);
         }
     });
     
-    Ext.reg('JavaAppPanel', ZC.JavaAppPanel);
-    ZC.registerName('JavaApp', _t('JVM'), _t('JVMs'));
+    Ext.reg('JavaGarbageCollectorPanel', ZC.JavaGarbageCollectorPanel);
+    ZC.registerName('JavaGarbageCollector', _t('JVM GC'), _t('JVM GCs'));
     
     })();
 

@@ -4,7 +4,7 @@ import Definition
 
 init = Initializer(Definition)
 for c in init.constructs: exec c.onCollectorInstalled()
-#ZenPack = init.getZenPackClass()
+
 class ZenPack(ZenPackConstruct):
     constructs = init.constructs
     packZProperties = init.props

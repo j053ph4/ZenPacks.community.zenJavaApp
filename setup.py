@@ -3,12 +3,12 @@
 # or saved.  Do not modify them directly here.
 # NB: PACKAGES is deprecated
 NAME = "ZenPacks.community.zenJavaApp"
-VERSION = "2.1"
+VERSION = "3.0"
 AUTHOR = "Joseph Anderson"
-LICENSE = "Apache"
+LICENSE = "GPLv2+"
 NAMESPACE_PACKAGES = ['ZenPacks', 'ZenPacks.community']
 PACKAGES = ['ZenPacks', 'ZenPacks.community', 'ZenPacks.community.zenJavaApp']
-INSTALL_REQUIRES = []
+INSTALL_REQUIRES = ['ZenPacks.zenoss.ZenJMX', 'ZenPacks.community.ConstructionKit>=3.0']
 COMPAT_ZENOSS_VERS = ">=3.0"
 PREV_ZENPACK_NAME = ""
 # STOP_REPLACEMENTS

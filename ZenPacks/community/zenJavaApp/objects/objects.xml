@@ -6,7 +6,61 @@
 ZenPacks.community.zenJavaApp.JavaApp
 </property>
 <tomanycont id='datasources'>
-<object id='Heap_Memory' module='ZenPacks.zenoss.ZenJMX.datasources.JMXDataSource' class='JMXDataSource'>
+<object id='DaemonThreadCount' module='ZenPacks.zenoss.ZenJMX.datasources.JMXDataSource' class='JMXDataSource'>
+<property select_variable="sourcetypes" type="selection" id="sourcetype" mode="w" >
+JMX
+</property>
+<property type="boolean" id="enabled" mode="w" >
+True
+</property>
+<property type="string" id="component" mode="w" >
+${here/id}
+</property>
+<property type="string" id="eventClass" mode="w" >
+/Status/JMX
+</property>
+<property type="int" id="severity" mode="w" >
+3
+</property>
+<property type="int" id="cycletime" mode="w" >
+300
+</property>
+<property type="string" id="jmxPort" mode="w" >
+${here/port}
+</property>
+<property type="string" id="jmxProtocol" mode="w" >
+${here/protocol}
+</property>
+<property type="string" id="rmiContext" mode="w" >
+jmxrmi
+</property>
+<property type="string" id="objectName" mode="w" >
+java.lang:type=Threading
+</property>
+<property type="string" id="authenticate" mode="w" >
+${here/auth}
+</property>
+<property type="string" id="username" mode="w" >
+${here/user}
+</property>
+<property type="string" id="password" mode="w" >
+${here/password}
+</property>
+<property type="string" id="attributeName" mode="w" >
+DaemonThreadCount
+</property>
+<tomanycont id='datapoints'>
+<object id='DaemonThreadCount' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
+<property select_variable="rrdtypes" type="selection" id="rrdtype" mode="w" >
+GAUGE
+</property>
+<property type="boolean" id="isrow" mode="w" >
+True
+</property>
+</object>
+</tomanycont>
+</object>
+<object id='HeapMemoryUsage' module='ZenPacks.zenoss.ZenJMX.datasources.JMXDataSource' class='JMXDataSource'>
 <property select_variable="sourcetypes" type="selection" id="sourcetype" mode="w" >
 JMX
 </property>
@@ -29,7 +83,7 @@ ${here/id}
 ${here/port}
 </property>
 <property type="string" id="jmxProtocol" mode="w" >
-RMI
+${here/protocol}
 </property>
 <property type="string" id="rmiContext" mode="w" >
 jmxrmi
@@ -107,7 +161,7 @@ ${here/id}
 ${here/port}
 </property>
 <property type="string" id="jmxProtocol" mode="w" >
-RMI
+${here/protocol}
 </property>
 <property type="string" id="rmiContext" mode="w" >
 jmxrmi
@@ -138,7 +192,61 @@ True
 </object>
 </tomanycont>
 </object>
-<object id='NonHeap_Memory' module='ZenPacks.zenoss.ZenJMX.datasources.JMXDataSource' class='JMXDataSource'>
+<object id='MaxFileDescriptorCount' module='ZenPacks.zenoss.ZenJMX.datasources.JMXDataSource' class='JMXDataSource'>
+<property select_variable="sourcetypes" type="selection" id="sourcetype" mode="w" >
+JMX
+</property>
+<property type="boolean" id="enabled" mode="w" >
+True
+</property>
+<property type="string" id="component" mode="w" >
+${here/id}
+</property>
+<property type="string" id="eventClass" mode="w" >
+/Status/JMX
+</property>
+<property type="int" id="severity" mode="w" >
+3
+</property>
+<property type="int" id="cycletime" mode="w" >
+300
+</property>
+<property type="string" id="jmxPort" mode="w" >
+${here/port}
+</property>
+<property type="string" id="jmxProtocol" mode="w" >
+${here/protocol}
+</property>
+<property type="string" id="rmiContext" mode="w" >
+jmxrmi
+</property>
+<property type="string" id="objectName" mode="w" >
+java.lang:type=OperatingSystem
+</property>
+<property type="string" id="authenticate" mode="w" >
+${here/auth}
+</property>
+<property type="string" id="username" mode="w" >
+${here/user}
+</property>
+<property type="string" id="password" mode="w" >
+${here/password}
+</property>
+<property type="string" id="attributeName" mode="w" >
+MaxFileDescriptorCount
+</property>
+<tomanycont id='datapoints'>
+<object id='MaxFileDescriptorCount' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
+<property select_variable="rrdtypes" type="selection" id="rrdtype" mode="w" >
+GAUGE
+</property>
+<property type="boolean" id="isrow" mode="w" >
+True
+</property>
+</object>
+</tomanycont>
+</object>
+<object id='NonHeapMemoryUsage' module='ZenPacks.zenoss.ZenJMX.datasources.JMXDataSource' class='JMXDataSource'>
 <property select_variable="sourcetypes" type="selection" id="sourcetype" mode="w" >
 JMX
 </property>
@@ -161,7 +269,7 @@ ${here/id}
 ${here/port}
 </property>
 <property type="string" id="jmxProtocol" mode="w" >
-RMI
+${here/protocol}
 </property>
 <property type="string" id="rmiContext" mode="w" >
 jmxrmi
@@ -216,7 +324,7 @@ True
 </object>
 </tomanycont>
 </object>
-<object id='OldGen' module='ZenPacks.zenoss.ZenJMX.datasources.JMXDataSource' class='JMXDataSource'>
+<object id='OpenFileDescriptorCount' module='ZenPacks.zenoss.ZenJMX.datasources.JMXDataSource' class='JMXDataSource'>
 <property select_variable="sourcetypes" type="selection" id="sourcetype" mode="w" >
 JMX
 </property>
@@ -239,69 +347,7 @@ ${here/id}
 ${here/port}
 </property>
 <property type="string" id="jmxProtocol" mode="w" >
-RMI
-</property>
-<property type="string" id="rmiContext" mode="w" >
-jmxrmi
-</property>
-<property type="string" id="objectName" mode="w" >
-${here/oGen}
-</property>
-<property type="string" id="authenticate" mode="w" >
-${here/auth}
-</property>
-<property type="string" id="username" mode="w" >
-${here/user}
-</property>
-<property type="string" id="password" mode="w" >
-${here/password}
-</property>
-<property type="string" id="attributeName" mode="w" >
-Usage
-</property>
-<tomanycont id='datapoints'>
-<object id='max' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
-<property select_variable="rrdtypes" type="selection" id="rrdtype" mode="w" >
-GAUGE
-</property>
-<property type="boolean" id="isrow" mode="w" >
-True
-</property>
-</object>
-<object id='used' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
-<property select_variable="rrdtypes" type="selection" id="rrdtype" mode="w" >
-GAUGE
-</property>
-<property type="boolean" id="isrow" mode="w" >
-True
-</property>
-</object>
-</tomanycont>
-</object>
-<object id='Open_File_Descriptors' module='ZenPacks.zenoss.ZenJMX.datasources.JMXDataSource' class='JMXDataSource'>
-<property select_variable="sourcetypes" type="selection" id="sourcetype" mode="w" >
-JMX
-</property>
-<property type="boolean" id="enabled" mode="w" >
-True
-</property>
-<property type="string" id="component" mode="w" >
-${here/id}
-</property>
-<property type="string" id="eventClass" mode="w" >
-/Status/JMX
-</property>
-<property type="int" id="severity" mode="w" >
-1
-</property>
-<property type="int" id="cycletime" mode="w" >
-300
-</property>
-<property type="string" id="jmxPort" mode="w" >
-${here/port}
-</property>
-<property type="string" id="jmxProtocol" mode="w" >
-RMI
+${here/protocol}
 </property>
 <property type="string" id="rmiContext" mode="w" >
 jmxrmi
@@ -332,7 +378,7 @@ True
 </object>
 </tomanycont>
 </object>
-<object id='PermGen' module='ZenPacks.zenoss.ZenJMX.datasources.JMXDataSource' class='JMXDataSource'>
+<object id='PeakThreadCount' module='ZenPacks.zenoss.ZenJMX.datasources.JMXDataSource' class='JMXDataSource'>
 <property select_variable="sourcetypes" type="selection" id="sourcetype" mode="w" >
 JMX
 </property>
@@ -346,7 +392,7 @@ ${here/id}
 /Status/JMX
 </property>
 <property type="int" id="severity" mode="w" >
-1
+3
 </property>
 <property type="int" id="cycletime" mode="w" >
 300
@@ -355,13 +401,13 @@ ${here/id}
 ${here/port}
 </property>
 <property type="string" id="jmxProtocol" mode="w" >
-RMI
+${here/protocol}
 </property>
 <property type="string" id="rmiContext" mode="w" >
 jmxrmi
 </property>
 <property type="string" id="objectName" mode="w" >
-${here/pGen}
+java.lang:type=Threading
 </property>
 <property type="string" id="authenticate" mode="w" >
 ${here/auth}
@@ -373,18 +419,10 @@ ${here/user}
 ${here/password}
 </property>
 <property type="string" id="attributeName" mode="w" >
-Usage
+PeakThreadCount
 </property>
 <tomanycont id='datapoints'>
-<object id='max' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
-<property select_variable="rrdtypes" type="selection" id="rrdtype" mode="w" >
-GAUGE
-</property>
-<property type="boolean" id="isrow" mode="w" >
-True
-</property>
-</object>
-<object id='used' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
+<object id='PeakThreadCount' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
 <property select_variable="rrdtypes" type="selection" id="rrdtype" mode="w" >
 GAUGE
 </property>
@@ -394,7 +432,7 @@ True
 </object>
 </tomanycont>
 </object>
-<object id='Thread_Count' module='ZenPacks.zenoss.ZenJMX.datasources.JMXDataSource' class='JMXDataSource'>
+<object id='ThreadCount' module='ZenPacks.zenoss.ZenJMX.datasources.JMXDataSource' class='JMXDataSource'>
 <property select_variable="sourcetypes" type="selection" id="sourcetype" mode="w" >
 JMX
 </property>
@@ -417,7 +455,7 @@ ${here/id}
 ${here/port}
 </property>
 <property type="string" id="jmxProtocol" mode="w" >
-RMI
+${here/protocol}
 </property>
 <property type="string" id="rmiContext" mode="w" >
 jmxrmi
@@ -448,9 +486,66 @@ True
 </object>
 </tomanycont>
 </object>
+<object id='UnloadedClassCount' module='ZenPacks.zenoss.ZenJMX.datasources.JMXDataSource' class='JMXDataSource'>
+<property select_variable="sourcetypes" type="selection" id="sourcetype" mode="w" >
+JMX
+</property>
+<property type="boolean" id="enabled" mode="w" >
+True
+</property>
+<property type="string" id="component" mode="w" >
+${here/id}
+</property>
+<property type="string" id="eventClass" mode="w" >
+/Status/JMX
+</property>
+<property type="int" id="severity" mode="w" >
+3
+</property>
+<property type="int" id="cycletime" mode="w" >
+300
+</property>
+<property type="string" id="jmxPort" mode="w" >
+${here/port}
+</property>
+<property type="string" id="jmxProtocol" mode="w" >
+${here/protocol}
+</property>
+<property type="string" id="rmiContext" mode="w" >
+jmxrmi
+</property>
+<property type="string" id="objectName" mode="w" >
+java.lang:type=ClassLoading
+</property>
+<property type="string" id="authenticate" mode="w" >
+${here/auth}
+</property>
+<property type="string" id="username" mode="w" >
+${here/user}
+</property>
+<property type="string" id="password" mode="w" >
+${here/password}
+</property>
+<property type="string" id="attributeName" mode="w" >
+UnloadedClassCount
+</property>
+<tomanycont id='datapoints'>
+<object id='UnloadedClassCount' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
+<property select_variable="rrdtypes" type="selection" id="rrdtype" mode="w" >
+GAUGE
+</property>
+<property type="boolean" id="isrow" mode="w" >
+True
+</property>
+</object>
+</tomanycont>
+</object>
 </tomanycont>
 <tomanycont id='thresholds'>
 <object id='ClassLoader Leak' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold'>
+<property id='zendoc' type='string'>
+This alert occurs when there appears to be a Class Loader memory Leak.
+</property>
 <property type="string" id="eventClass" mode="w" >
 /Perf/Java
 </property>
@@ -458,19 +553,28 @@ True
 3
 </property>
 <property label="DataPoints" type="lines" id="dsnames" mode="w" >
-['OldGen_used']
+['LoadedClassCount_LoadedClassCount']
 </property>
 <property label="Enabled" type="boolean" id="enabled" mode="w" >
 False
 </property>
 <property type="string" id="maxval" mode="w" >
-here.getRRDValue('PermGen_max',None, None, 'AVERAGE') * .9
+here.getRRDValue('LoadedClassCount_LoadedClassCount', 'end-7d', None, 'AVERAGE') * 1.05
 </property>
 <property type="int" id="escalateCount" mode="w" >
 0
 </property>
+<property type="string" id="description" mode="rw" >
+This alert occurs when there appears to be a Class Loader memory Leak.
+</property>
+<property type="string" id="explanation" mode="rw" >
+Java Applications typically load and unload classes on an as needed basis.  If classes fail to unload, however, then they continue to occupy memory over the run time of the application.  This can eventually consume all available memory from the underlying system.
+</property>
 </object>
 <object id='Heap Memory Utilization' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold'>
+<property id='zendoc' type='string'>
+This alert occurs when Java Heap memory usage exceeds a percentage of its maximum.
+</property>
 <property type="string" id="eventClass" mode="w" >
 /Perf/Java
 </property>
@@ -478,19 +582,28 @@ here.getRRDValue('PermGen_max',None, None, 'AVERAGE') * .9
 3
 </property>
 <property label="DataPoints" type="lines" id="dsnames" mode="w" >
-['Heap_Memory_used']
+['HeapMemoryUsage_used']
 </property>
 <property label="Enabled" type="boolean" id="enabled" mode="w" >
 True
 </property>
 <property type="string" id="maxval" mode="w" >
-here.getRRDValue('Heap_Memory_max') * .9
+here.getRRDValue('HeapMemoryUsage_max') * .9
 </property>
 <property type="int" id="escalateCount" mode="w" >
 0
 </property>
+<property type="string" id="description" mode="rw" >
+This alert occurs when Java Heap memory usage exceeds a percentage of its maximum.
+</property>
+<property type="string" id="explanation" mode="rw" >
+Excessive utilization of Heap Memory can indicate problems with the JVM, which may affect dependent services.
+</property>
 </object>
-<object id='Memory Leak' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold'>
+<object id='Thread Count High' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold'>
+<property id='zendoc' type='string'>
+Number of threads in use is unacceptably high.
+</property>
 <property type="string" id="eventClass" mode="w" >
 /Perf/Java
 </property>
@@ -498,20 +611,198 @@ here.getRRDValue('Heap_Memory_max') * .9
 3
 </property>
 <property label="DataPoints" type="lines" id="dsnames" mode="w" >
-['OldGen_used']
+['ThreadCount_ThreadCount']
 </property>
 <property label="Enabled" type="boolean" id="enabled" mode="w" >
 False
 </property>
 <property type="string" id="maxval" mode="w" >
-here.getRRDValue('OldGen_used', 'end-7d', None, 'AVERAGE') * 1.25
+325
 </property>
 <property type="int" id="escalateCount" mode="w" >
 0
 </property>
+<property type="string" id="description" mode="rw" >
+Number of threads in use is unacceptably high.
+</property>
+<property type="string" id="explanation" mode="rw" >
+An excessive thread count can indicate problems with the JVM, which may affect dependent services.
+</property>
 </object>
 </tomanycont>
 <tomanycont id='graphDefs'>
+<object id='Classes' module='Products.ZenModel.GraphDefinition' class='GraphDefinition'>
+<property type="int" id="height" mode="w" >
+100
+</property>
+<property type="int" id="width" mode="w" >
+500
+</property>
+<property type="boolean" id="log" mode="w" >
+False
+</property>
+<property type="boolean" id="base" mode="w" >
+False
+</property>
+<property type="int" id="miny" mode="w" >
+-1
+</property>
+<property type="int" id="maxy" mode="w" >
+-1
+</property>
+<property type="boolean" id="hasSummary" mode="w" >
+True
+</property>
+<property type="long" id="sequence" mode="w" >
+4
+</property>
+<tomanycont id='graphPoints'>
+<object id='loaded' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+0
+</property>
+<property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
+AREA
+</property>
+<property type="long" id="lineWidth" mode="w" >
+1
+</property>
+<property type="boolean" id="stacked" mode="w" >
+False
+</property>
+<property type="string" id="format" mode="w" >
+%5.2lf%s
+</property>
+<property type="string" id="legend" mode="w" >
+${graphPoint/id}
+</property>
+<property type="long" id="limit" mode="w" >
+-1
+</property>
+<property type="string" id="dpName" mode="w" >
+LoadedClassCount_LoadedClassCount
+</property>
+<property type="string" id="cFunc" mode="w" >
+AVERAGE
+</property>
+</object>
+<object id='unloaded' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+1
+</property>
+<property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
+AREA
+</property>
+<property type="long" id="lineWidth" mode="w" >
+1
+</property>
+<property type="boolean" id="stacked" mode="w" >
+False
+</property>
+<property type="string" id="format" mode="w" >
+%5.2lf%s
+</property>
+<property type="string" id="legend" mode="w" >
+${graphPoint/id}
+</property>
+<property type="long" id="limit" mode="w" >
+-1
+</property>
+<property type="string" id="dpName" mode="w" >
+UnloadedClassCount_UnloadedClassCount
+</property>
+<property type="string" id="cFunc" mode="w" >
+AVERAGE
+</property>
+</object>
+</tomanycont>
+</object>
+<object id='File Descriptors' module='Products.ZenModel.GraphDefinition' class='GraphDefinition'>
+<property type="int" id="height" mode="w" >
+100
+</property>
+<property type="int" id="width" mode="w" >
+500
+</property>
+<property type="boolean" id="log" mode="w" >
+False
+</property>
+<property type="boolean" id="base" mode="w" >
+False
+</property>
+<property type="int" id="miny" mode="w" >
+-1
+</property>
+<property type="int" id="maxy" mode="w" >
+-1
+</property>
+<property type="boolean" id="hasSummary" mode="w" >
+True
+</property>
+<property type="long" id="sequence" mode="w" >
+2
+</property>
+<tomanycont id='graphPoints'>
+<object id='max' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+0
+</property>
+<property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
+LINE
+</property>
+<property type="long" id="lineWidth" mode="w" >
+1
+</property>
+<property type="boolean" id="stacked" mode="w" >
+False
+</property>
+<property type="string" id="format" mode="w" >
+%5.2lf%s
+</property>
+<property type="string" id="legend" mode="w" >
+${graphPoint/id}
+</property>
+<property type="long" id="limit" mode="w" >
+-1
+</property>
+<property type="string" id="dpName" mode="w" >
+MaxFileDescriptorCount_MaxFileDescriptorCount
+</property>
+<property type="string" id="cFunc" mode="w" >
+AVERAGE
+</property>
+</object>
+<object id='open' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+1
+</property>
+<property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
+AREA
+</property>
+<property type="long" id="lineWidth" mode="w" >
+1
+</property>
+<property type="boolean" id="stacked" mode="w" >
+False
+</property>
+<property type="string" id="format" mode="w" >
+%5.2lf%s
+</property>
+<property type="string" id="legend" mode="w" >
+${graphPoint/id}
+</property>
+<property type="long" id="limit" mode="w" >
+-1
+</property>
+<property type="string" id="dpName" mode="w" >
+OpenFileDescriptorCount_OpenFileDescriptorCount
+</property>
+<property type="string" id="cFunc" mode="w" >
+AVERAGE
+</property>
+</object>
+</tomanycont>
+</object>
 <object id='Heap Memory' module='Products.ZenModel.GraphDefinition' class='GraphDefinition'>
 <property type="int" id="height" mode="w" >
 100
@@ -561,7 +852,7 @@ ${graphPoint/id}
 -1
 </property>
 <property type="string" id="dpName" mode="w" >
-Heap_Memory_max
+HeapMemoryUsage_max
 </property>
 <property type="string" id="cFunc" mode="w" >
 AVERAGE
@@ -590,7 +881,7 @@ ${graphPoint/id}
 -1
 </property>
 <property type="string" id="dpName" mode="w" >
-Heap_Memory_used
+HeapMemoryUsage_used
 </property>
 <property type="string" id="cFunc" mode="w" >
 AVERAGE
@@ -598,7 +889,7 @@ AVERAGE
 </object>
 </tomanycont>
 </object>
-<object id='Non-Heap Memory' module='Products.ZenModel.GraphDefinition' class='GraphDefinition'>
+<object id='NonHeap Memory' module='Products.ZenModel.GraphDefinition' class='GraphDefinition'>
 <property type="int" id="height" mode="w" >
 100
 </property>
@@ -647,7 +938,7 @@ ${graphPoint/id}
 -1
 </property>
 <property type="string" id="dpName" mode="w" >
-NonHeap_Memory_max
+NonHeapMemoryUsage_max
 </property>
 <property type="string" id="cFunc" mode="w" >
 AVERAGE
@@ -676,7 +967,7 @@ ${graphPoint/id}
 -1
 </property>
 <property type="string" id="dpName" mode="w" >
-NonHeap_Memory_used
+NonHeapMemoryUsage_used
 </property>
 <property type="string" id="cFunc" mode="w" >
 AVERAGE
@@ -684,236 +975,7 @@ AVERAGE
 </object>
 </tomanycont>
 </object>
-<object id='Old Gen' module='Products.ZenModel.GraphDefinition' class='GraphDefinition'>
-<property type="int" id="height" mode="w" >
-100
-</property>
-<property type="int" id="width" mode="w" >
-500
-</property>
-<property type="boolean" id="log" mode="w" >
-False
-</property>
-<property type="boolean" id="base" mode="w" >
-False
-</property>
-<property type="int" id="miny" mode="w" >
--1
-</property>
-<property type="int" id="maxy" mode="w" >
--1
-</property>
-<property type="boolean" id="hasSummary" mode="w" >
-True
-</property>
-<property type="long" id="sequence" mode="w" >
-4
-</property>
-<tomanycont id='graphPoints'>
-<object id='max' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
-<property type="long" id="sequence" mode="w" >
-0
-</property>
-<property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
-LINE
-</property>
-<property type="long" id="lineWidth" mode="w" >
-1
-</property>
-<property type="boolean" id="stacked" mode="w" >
-False
-</property>
-<property type="string" id="format" mode="w" >
-%5.2lf%s
-</property>
-<property type="string" id="legend" mode="w" >
-${graphPoint/id}
-</property>
-<property type="long" id="limit" mode="w" >
--1
-</property>
-<property type="string" id="dpName" mode="w" >
-OldGen_max
-</property>
-<property type="string" id="cFunc" mode="w" >
-AVERAGE
-</property>
-</object>
-<object id='used' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
-<property type="long" id="sequence" mode="w" >
-1
-</property>
-<property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
-AREA
-</property>
-<property type="long" id="lineWidth" mode="w" >
-1
-</property>
-<property type="boolean" id="stacked" mode="w" >
-False
-</property>
-<property type="string" id="format" mode="w" >
-%5.2lf%s
-</property>
-<property type="string" id="legend" mode="w" >
-${graphPoint/id}
-</property>
-<property type="long" id="limit" mode="w" >
--1
-</property>
-<property type="string" id="dpName" mode="w" >
-OldGen_used
-</property>
-<property type="string" id="cFunc" mode="w" >
-AVERAGE
-</property>
-</object>
-</tomanycont>
-</object>
-<object id='Open File Descriptors' module='Products.ZenModel.GraphDefinition' class='GraphDefinition'>
-<property type="int" id="height" mode="w" >
-100
-</property>
-<property type="int" id="width" mode="w" >
-500
-</property>
-<property type="boolean" id="log" mode="w" >
-False
-</property>
-<property type="boolean" id="base" mode="w" >
-False
-</property>
-<property type="int" id="miny" mode="w" >
--1
-</property>
-<property type="int" id="maxy" mode="w" >
--1
-</property>
-<property type="boolean" id="hasSummary" mode="w" >
-True
-</property>
-<property type="long" id="sequence" mode="w" >
-2
-</property>
-<tomanycont id='graphPoints'>
-<object id='descriptors' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
-<property type="long" id="sequence" mode="w" >
-0
-</property>
-<property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
-AREA
-</property>
-<property type="long" id="lineWidth" mode="w" >
-1
-</property>
-<property type="boolean" id="stacked" mode="w" >
-False
-</property>
-<property type="string" id="format" mode="w" >
-%5.2lf%s
-</property>
-<property type="string" id="legend" mode="w" >
-${graphPoint/id}
-</property>
-<property type="long" id="limit" mode="w" >
--1
-</property>
-<property type="string" id="dpName" mode="w" >
-Open_File_Descriptors_OpenFileDescriptorCount
-</property>
-<property type="string" id="cFunc" mode="w" >
-AVERAGE
-</property>
-</object>
-</tomanycont>
-</object>
-<object id='Perm Gen' module='Products.ZenModel.GraphDefinition' class='GraphDefinition'>
-<property type="int" id="height" mode="w" >
-100
-</property>
-<property type="int" id="width" mode="w" >
-500
-</property>
-<property type="boolean" id="log" mode="w" >
-False
-</property>
-<property type="boolean" id="base" mode="w" >
-False
-</property>
-<property type="int" id="miny" mode="w" >
--1
-</property>
-<property type="int" id="maxy" mode="w" >
--1
-</property>
-<property type="boolean" id="hasSummary" mode="w" >
-True
-</property>
-<property type="long" id="sequence" mode="w" >
-5
-</property>
-<tomanycont id='graphPoints'>
-<object id='max' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
-<property type="long" id="sequence" mode="w" >
-0
-</property>
-<property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
-LINE
-</property>
-<property type="long" id="lineWidth" mode="w" >
-1
-</property>
-<property type="boolean" id="stacked" mode="w" >
-False
-</property>
-<property type="string" id="format" mode="w" >
-%5.2lf%s
-</property>
-<property type="string" id="legend" mode="w" >
-${graphPoint/id}
-</property>
-<property type="long" id="limit" mode="w" >
--1
-</property>
-<property type="string" id="dpName" mode="w" >
-PermGen_max
-</property>
-<property type="string" id="cFunc" mode="w" >
-AVERAGE
-</property>
-</object>
-<object id='used' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
-<property type="long" id="sequence" mode="w" >
-1
-</property>
-<property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
-AREA
-</property>
-<property type="long" id="lineWidth" mode="w" >
-1
-</property>
-<property type="boolean" id="stacked" mode="w" >
-False
-</property>
-<property type="string" id="format" mode="w" >
-%5.2lf%s
-</property>
-<property type="string" id="legend" mode="w" >
-${graphPoint/id}
-</property>
-<property type="long" id="limit" mode="w" >
--1
-</property>
-<property type="string" id="dpName" mode="w" >
-PermGen_used
-</property>
-<property type="string" id="cFunc" mode="w" >
-AVERAGE
-</property>
-</object>
-</tomanycont>
-</object>
-<object id='Thread Count' module='Products.ZenModel.GraphDefinition' class='GraphDefinition'>
+<object id='Threads' module='Products.ZenModel.GraphDefinition' class='GraphDefinition'>
 <property type="int" id="height" mode="w" >
 100
 </property>
@@ -939,7 +1001,36 @@ True
 3
 </property>
 <tomanycont id='graphPoints'>
-<object id='threads' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<object id='daemon threads' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+2
+</property>
+<property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
+AREA
+</property>
+<property type="long" id="lineWidth" mode="w" >
+1
+</property>
+<property type="boolean" id="stacked" mode="w" >
+False
+</property>
+<property type="string" id="format" mode="w" >
+%5.2lf%s
+</property>
+<property type="string" id="legend" mode="w" >
+${graphPoint/id}
+</property>
+<property type="long" id="limit" mode="w" >
+-1
+</property>
+<property type="string" id="dpName" mode="w" >
+DaemonThreadCount_DaemonThreadCount
+</property>
+<property type="string" id="cFunc" mode="w" >
+AVERAGE
+</property>
+</object>
+<object id='peak' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
 <property type="long" id="sequence" mode="w" >
 0
 </property>
@@ -962,7 +1053,346 @@ ${graphPoint/id}
 -1
 </property>
 <property type="string" id="dpName" mode="w" >
-Thread_Count_ThreadCount
+PeakThreadCount_PeakThreadCount
+</property>
+<property type="string" id="cFunc" mode="w" >
+AVERAGE
+</property>
+</object>
+<object id='threads' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+1
+</property>
+<property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
+AREA
+</property>
+<property type="long" id="lineWidth" mode="w" >
+1
+</property>
+<property type="boolean" id="stacked" mode="w" >
+False
+</property>
+<property type="string" id="format" mode="w" >
+%5.2lf%s
+</property>
+<property type="string" id="legend" mode="w" >
+${graphPoint/id}
+</property>
+<property type="long" id="limit" mode="w" >
+-1
+</property>
+<property type="string" id="dpName" mode="w" >
+ThreadCount_ThreadCount
+</property>
+<property type="string" id="cFunc" mode="w" >
+AVERAGE
+</property>
+</object>
+</tomanycont>
+</object>
+</tomanycont>
+</object>
+<!-- ('', 'zport', 'dmd', 'Devices', 'rrdTemplates', 'JavaGarbageCollector') -->
+<object id='/zport/dmd/Devices/rrdTemplates/JavaGarbageCollector' module='Products.ZenModel.RRDTemplate' class='RRDTemplate'>
+<property type="string" id="targetPythonClass" mode="w" >
+ZenPacks.community.zenJavaApp.JavaGarbageCollector
+</property>
+<tomanycont id='datasources'>
+<object id='CollectionCount' module='ZenPacks.zenoss.ZenJMX.datasources.JMXDataSource' class='JMXDataSource'>
+<property select_variable="sourcetypes" type="selection" id="sourcetype" mode="w" >
+JMX
+</property>
+<property type="boolean" id="enabled" mode="w" >
+True
+</property>
+<property type="string" id="component" mode="w" >
+${here/id}
+</property>
+<property type="string" id="eventClass" mode="w" >
+/Status/JMX
+</property>
+<property type="int" id="severity" mode="w" >
+3
+</property>
+<property type="int" id="cycletime" mode="w" >
+300
+</property>
+<property type="string" id="jmxPort" mode="w" >
+${here/port}
+</property>
+<property type="string" id="jmxProtocol" mode="w" >
+${here/protocol}
+</property>
+<property type="string" id="rmiContext" mode="w" >
+jmxrmi
+</property>
+<property type="string" id="objectName" mode="w" >
+${here/fullpath}
+</property>
+<property type="string" id="authenticate" mode="w" >
+${here/auth}
+</property>
+<property type="string" id="username" mode="w" >
+${here/user}
+</property>
+<property type="string" id="password" mode="w" >
+${here/password}
+</property>
+<property type="string" id="attributeName" mode="w" >
+CollectionCount
+</property>
+<tomanycont id='datapoints'>
+<object id='CollectionCount' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
+<property select_variable="rrdtypes" type="selection" id="rrdtype" mode="w" >
+COUNTER
+</property>
+<property type="boolean" id="isrow" mode="w" >
+True
+</property>
+</object>
+</tomanycont>
+</object>
+</tomanycont>
+<tomanycont id='graphDefs'>
+<object id='GC Collection' module='Products.ZenModel.GraphDefinition' class='GraphDefinition'>
+<property type="int" id="height" mode="w" >
+100
+</property>
+<property type="int" id="width" mode="w" >
+500
+</property>
+<property type="boolean" id="log" mode="w" >
+False
+</property>
+<property type="boolean" id="base" mode="w" >
+False
+</property>
+<property type="int" id="miny" mode="w" >
+-1
+</property>
+<property type="int" id="maxy" mode="w" >
+-1
+</property>
+<property type="boolean" id="hasSummary" mode="w" >
+True
+</property>
+<property type="long" id="sequence" mode="w" >
+0
+</property>
+<tomanycont id='graphPoints'>
+<object id='CollectionCount' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+0
+</property>
+<property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
+AREA
+</property>
+<property type="long" id="lineWidth" mode="w" >
+1
+</property>
+<property type="boolean" id="stacked" mode="w" >
+False
+</property>
+<property type="string" id="format" mode="w" >
+%5.2lf%s
+</property>
+<property type="string" id="legend" mode="w" >
+${graphPoint/id}
+</property>
+<property type="long" id="limit" mode="w" >
+-1
+</property>
+<property type="string" id="dpName" mode="w" >
+CollectionCount_CollectionCount
+</property>
+<property type="string" id="cFunc" mode="w" >
+AVERAGE
+</property>
+</object>
+</tomanycont>
+</object>
+</tomanycont>
+</object>
+<!-- ('', 'zport', 'dmd', 'Devices', 'rrdTemplates', 'JavaMemoryPool') -->
+<object id='/zport/dmd/Devices/rrdTemplates/JavaMemoryPool' module='Products.ZenModel.RRDTemplate' class='RRDTemplate'>
+<property type="string" id="targetPythonClass" mode="w" >
+ZenPacks.community.zenJavaApp.JavaMemoryPool
+</property>
+<tomanycont id='datasources'>
+<object id='Usage' module='ZenPacks.zenoss.ZenJMX.datasources.JMXDataSource' class='JMXDataSource'>
+<property select_variable="sourcetypes" type="selection" id="sourcetype" mode="w" >
+JMX
+</property>
+<property type="boolean" id="enabled" mode="w" >
+True
+</property>
+<property type="string" id="component" mode="w" >
+${here/id}
+</property>
+<property type="string" id="eventClass" mode="w" >
+/Status/JMX
+</property>
+<property type="int" id="severity" mode="w" >
+3
+</property>
+<property type="int" id="cycletime" mode="w" >
+300
+</property>
+<property type="string" id="jmxPort" mode="w" >
+${here/port}
+</property>
+<property type="string" id="jmxProtocol" mode="w" >
+${here/protocol}
+</property>
+<property type="string" id="rmiContext" mode="w" >
+jmxrmi
+</property>
+<property type="string" id="objectName" mode="w" >
+${here/fullpath}
+</property>
+<property type="string" id="authenticate" mode="w" >
+${here/auth}
+</property>
+<property type="string" id="username" mode="w" >
+${here/user}
+</property>
+<property type="string" id="password" mode="w" >
+${here/password}
+</property>
+<property type="string" id="attributeName" mode="w" >
+Usage
+</property>
+<tomanycont id='datapoints'>
+<object id='max' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
+<property select_variable="rrdtypes" type="selection" id="rrdtype" mode="w" >
+GAUGE
+</property>
+<property type="boolean" id="isrow" mode="w" >
+True
+</property>
+</object>
+<object id='used' module='Products.ZenModel.RRDDataPoint' class='RRDDataPoint'>
+<property select_variable="rrdtypes" type="selection" id="rrdtype" mode="w" >
+GAUGE
+</property>
+<property type="boolean" id="isrow" mode="w" >
+True
+</property>
+</object>
+</tomanycont>
+</object>
+</tomanycont>
+<tomanycont id='thresholds'>
+<object id='GC Memory Leak' module='Products.ZenModel.MinMaxThreshold' class='MinMaxThreshold'>
+<property id='zendoc' type='string'>
+This alert occurs when there appears to be a garbage collector memory leak.
+</property>
+<property type="string" id="eventClass" mode="w" >
+/Perf/Java
+</property>
+<property type="int" id="severity" mode="w" >
+3
+</property>
+<property label="DataPoints" type="lines" id="dsnames" mode="w" >
+['Usage_used']
+</property>
+<property label="Enabled" type="boolean" id="enabled" mode="w" >
+False
+</property>
+<property type="string" id="maxval" mode="w" >
+here.getRRDValue('Usage_used', 'end-7d', None, 'AVERAGE') * 1.25
+</property>
+<property type="int" id="escalateCount" mode="w" >
+0
+</property>
+<property type="string" id="description" mode="rw" >
+This alert occurs when there appears to be a garbage collector memory leak.
+</property>
+<property type="string" id="explanation" mode="rw" >
+Java Applications typically load and unload objects on an as needed basis.  If classes fail to unload, however, then they continue to occupy memory over the run time of the application.  This can eventually consume all available memory from the underlying system.
+</property>
+</object>
+</tomanycont>
+<tomanycont id='graphDefs'>
+<object id='Usage' module='Products.ZenModel.GraphDefinition' class='GraphDefinition'>
+<property type="int" id="height" mode="w" >
+100
+</property>
+<property type="int" id="width" mode="w" >
+500
+</property>
+<property type="boolean" id="log" mode="w" >
+False
+</property>
+<property type="boolean" id="base" mode="w" >
+False
+</property>
+<property type="int" id="miny" mode="w" >
+-1
+</property>
+<property type="int" id="maxy" mode="w" >
+-1
+</property>
+<property type="boolean" id="hasSummary" mode="w" >
+True
+</property>
+<property type="long" id="sequence" mode="w" >
+0
+</property>
+<tomanycont id='graphPoints'>
+<object id='max' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+0
+</property>
+<property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
+LINE
+</property>
+<property type="long" id="lineWidth" mode="w" >
+1
+</property>
+<property type="boolean" id="stacked" mode="w" >
+False
+</property>
+<property type="string" id="format" mode="w" >
+%5.2lf%s
+</property>
+<property type="string" id="legend" mode="w" >
+${graphPoint/id}
+</property>
+<property type="long" id="limit" mode="w" >
+-1
+</property>
+<property type="string" id="dpName" mode="w" >
+Usage_max
+</property>
+<property type="string" id="cFunc" mode="w" >
+AVERAGE
+</property>
+</object>
+<object id='used' module='Products.ZenModel.DataPointGraphPoint' class='DataPointGraphPoint'>
+<property type="long" id="sequence" mode="w" >
+1
+</property>
+<property select_variable="lineTypes" type="selection" id="lineType" mode="w" >
+AREA
+</property>
+<property type="long" id="lineWidth" mode="w" >
+1
+</property>
+<property type="boolean" id="stacked" mode="w" >
+False
+</property>
+<property type="string" id="format" mode="w" >
+%5.2lf%s
+</property>
+<property type="string" id="legend" mode="w" >
+${graphPoint/id}
+</property>
+<property type="long" id="limit" mode="w" >
+-1
+</property>
+<property type="string" id="dpName" mode="w" >
+Usage_used
 </property>
 <property type="string" id="cFunc" mode="w" >
 AVERAGE
@@ -981,25 +1411,25 @@ AVERAGE
 def findComponent(dev, ctype, cid):
 	comps = []
 	try:
-		try:
-			comps = getattr(dev.os,ctype)()
-		except:
-			comps = getattr(dev,ctype)()
-	except:
-		comps = []
+		try: comps = getattr(dev.os,ctype)()
+		except: comps = getattr(dev,ctype)()
+	except: comps = []
 	print "comps: %s" % comps
 	for c in comps:
-		if dev.prepId(c.id) == cid:
-			return c
+		if dev.prepId(c.id) == cid: return c
 	return None
 
-searchString = "Heap Memory Utilization"
-if searchString in evt.summary:
-	util = float(evt.summary[evt.summary.find("current value ")+14:len(evt.summary)-1])
+if "Heap Memory Utilization" in evt.summary:
+	searchString = 'current value '
+	start = evt.summary.find(searchString)+len(searchString)
+	util = float(evt.summary[start:])
 	c = findComponent(device,'javaApps',evt.component)
-	max = c.getRRDValue('Heap_Memory_max')
-	pct = util/max * 100
-	evt.summary = "%s: %3.1f%%" % (searchString, pct)
+	if c is not None:
+		try:
+			max = c.getRRDValue('HeapMemoryUsage_max') 
+			pct = util/max * 100
+			evt.summary = "Heap Memory Utilization: %s %3.1f%%" % (searchString, pct)
+		except:  pass
 </property>
 </object>
 </objects>

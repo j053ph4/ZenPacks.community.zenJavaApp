@@ -9,12 +9,12 @@
                 var menuButton = Ext.getCmp('component-add-menu');
                 menuButton.menuItems.push({
                     xtype: 'menuitem',
-                    text: _t('Add JVM') + '...',
+                    text: _t('Add JVM GC') + '...',
                     hidden: Zenoss.Security.doesNotHavePermission('Manage Device'),
                     handler: function() {
                         var win = new Zenoss.dialog.CloseDialog({
                             width: 300,
-                            title: _t('Add JVM'),
+                            title: _t('Add JVM GC'),
                             items: [{
                                 xtype: 'form',
                                 buttonAlign: 'left',
@@ -24,19 +24,11 @@
                                 border: false,
                                 items:                         [
                             {
-                                fieldLabel: 'Java Version', 
+                                fieldLabel: 'MBean', 
                                 allowBlank: 'false', 
-                                name: 'javaversion', 
+                                name: 'mbean', 
                                 width: 260, 
-                                id: 'javaversionField', 
-                                xtype: 'textfield'
-                            }, 
-                            {
-                                fieldLabel: 'JVM Version', 
-                                allowBlank: 'false', 
-                                name: 'vendorproduct', 
-                                width: 260, 
-                                id: 'vendorproductField', 
+                                id: 'mbeanField', 
                                 xtype: 'textfield'
                             }
                         ]
@@ -50,11 +42,11 @@
                                     handler: function(b) {
                                         var form = b.ownerCt.ownerCt.getForm();
                                         var opts = form.getFieldValues();
-                                        Zenoss.remote.zenJavaAppRouter.addJavaAppRouter(opts,
+                                        Zenoss.remote.zenJavaAppRouter.addJavaGarbageCollectorRouter(opts,
                                         function(response) {
                                             if (response.success) {
                                                 new Zenoss.dialog.SimpleMessageDialog({
-                                                    title: _t('JVM Added'),
+                                                    title: _t('JVM GC Added'),
                                                     message: response.msg,
                                                     buttons: [{
                                                         xtype: 'DialogButton',

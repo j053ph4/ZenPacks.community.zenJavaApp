@@ -32,7 +32,8 @@ Requirements:
     ZenPack Dependencies:
     Installation Notes: zopectl restart; zenhub restart after installing this
 ZenPack.
-    Configuration: zJavaAppPortRange needs to be populated with a range of ports to scan
+    Configuration: zJavaAppPortRange needs to be populated with a range of
+ports to scan
 
 History:
 
@@ -51,13 +52,33 @@ Change History:
         Added support for manual deletion of components
         Removed clear text display of password on Component Details pane
     1.4
-        Using different python method to extract JMX output from cmdline utility
+        Using different python method to extract JMX output from cmdline
+utility
 2.0
     added Zenoss 4.X support
-    new dependency on "ConstructionKit" ZenPack to simplify current/future development
+    new dependency on "ConstructionKit" ZenPack to simplify current/future
+development
     <https://github.com/j053ph4/ZenPacks.community.ConstructionKit>
-    modeler plugin uses nmap-based method to scan and profile ports within a given range.
+    modeler plugin uses nmap-based method to scan and profile ports within a
+given range.
 
+3.0
+	Almost entirely rewritten to use Jolokia (http://www.jolokia.org) as a
+proxy for modeling,
+	instead of the (mostly) abandoned JMX libraries used in previous
+versions.  Modeller plugins now 
+	proxy requests through a Jolokia-enabled JVM to the remote host (set
+through a zProperty).  Tested
+	with Tomcat installed on each Zenoss server (including collectors).
+Requires "pyjolokia" Python lib, 
+	which can be installed with "pip install pyjolokia" or "easy_install
+pyjolokia".
+	
+	These changes result in substantial improvements in modelling speed
+and ability to handle various JVMs.
+	
+	Further information about Jolokia can be found on its project site.
+	
 Tested
 ======
 This ZenPack was tested with versions 3.2.1, 4.2.3
@@ -65,4 +86,4 @@ This ZenPack was tested with versions 3.2.1, 4.2.3
 Source:
 https://github.com/j053ph4/ZenPacks.community.zenJavaApp
 
-Known issues:  
+Known issues:  nown issues:  

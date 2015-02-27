@@ -31,6 +31,26 @@
             />
 
             <!-- Component Info -->
+            <adapter factory="ZenPacks.community.zenJavaApp.info.JavaGarbageCollectorInfo"
+                for="ZenPacks.community.zenJavaApp.JavaGarbageCollector.JavaGarbageCollector"
+                provides="ZenPacks.community.zenJavaApp.interfaces.IJavaGarbageCollectorInfo"
+            />
+    
+            <browser:viewlet
+                name="js-JavaGarbageCollector"
+                paths="/++resource++zenJavaApp/javagarbagecollector.js"
+                weight="10"
+                manager="Products.ZenUI3.browser.interfaces.IJavaScriptSrcManager"
+                class="Products.ZenUI3.browser.javascript.JavaScriptSrcBundleViewlet"
+                permission="zope2.Public"
+            />
+
+            <utility provides="zope.schema.interfaces.IVocabularyFactory"
+                component=".info.JavaGarbageCollectorgetEventClassesVocabulary"
+                name="JavaGarbageCollectorgetEventClasses"
+            />
+
+            <!-- Component Info -->
             <adapter factory="ZenPacks.community.zenJavaApp.info.JavaAppInfo"
                 for="ZenPacks.community.zenJavaApp.JavaApp.JavaApp"
                 provides="ZenPacks.community.zenJavaApp.interfaces.IJavaAppInfo"
@@ -48,6 +68,26 @@
             <utility provides="zope.schema.interfaces.IVocabularyFactory"
                 component=".info.JavaAppgetEventClassesVocabulary"
                 name="JavaAppgetEventClasses"
+            />
+
+            <!-- Component Info -->
+            <adapter factory="ZenPacks.community.zenJavaApp.info.JavaMemoryPoolInfo"
+                for="ZenPacks.community.zenJavaApp.JavaMemoryPool.JavaMemoryPool"
+                provides="ZenPacks.community.zenJavaApp.interfaces.IJavaMemoryPoolInfo"
+            />
+    
+            <browser:viewlet
+                name="js-JavaMemoryPool"
+                paths="/++resource++zenJavaApp/javamemorypool.js"
+                weight="10"
+                manager="Products.ZenUI3.browser.interfaces.IJavaScriptSrcManager"
+                class="Products.ZenUI3.browser.javascript.JavaScriptSrcBundleViewlet"
+                permission="zope2.Public"
+            />
+
+            <utility provides="zope.schema.interfaces.IVocabularyFactory"
+                component=".info.JavaMemoryPoolgetEventClassesVocabulary"
+                name="JavaMemoryPoolgetEventClasses"
             />
 
         </configure>
