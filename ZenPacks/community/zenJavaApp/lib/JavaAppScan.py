@@ -6,7 +6,7 @@ from JolokiaProxyHandler import *
 import logging
 log = logging.getLogger('zen.zenhub')
 
-#def getInfo(self): return {'isJmx': False,'useAuth': False,'validAuth': False, 'isGood': False, 'protocol': ''}
+
 def getExecOutput(args, timeout=15):
     '''periodically check process output'''
     log.debug('getting output for: %s with timeout: %s' % (' '.join(args), timeout))
@@ -22,9 +22,10 @@ def getExecOutput(args, timeout=15):
     try: return output.communicate()[0].split("\n")  
     except: return []
 
+
 class JavaAppScan(object):
     '''
-        Identify JMX-capable ports
+        Class handling NMAP port scans to identify JMX ports and caching the results
     '''
     def __init__(self, ipaddr=None, portrange='1000-50000', username=None, password=None, proxyhost='localhost', proxyport=8888, timeout=10, maxage=21600):
         self.ipaddr = ipaddr
@@ -41,20 +42,22 @@ class JavaAppScan(object):
     
     def readCache(self):
         '''read dictionary from cache'''
-        log.debug('reading cache from %s' % self.cachefile)
         with open(self.cachefile, 'rb') as fp: self.portdict = pickle.load(fp)
+        log.debug('read cache from %s' % self.cachefile)
     
     def writeCache(self):
         '''write dictionary to cache'''
-        log.debug('writing cache to %s' % self.cachefile)
         with open(self.cachefile, 'wb') as fp: pickle.dump(self.portdict, fp)
+        log.debug('wrote cache to %s' % self.cachefile)
     
     def useCache(self):
         '''decide whether or not to use cache file'''
         log.debug('checking cache file %s' % self.cachefile)
         if os.path.isfile(self.cachefile):
             #cachemaxage = time.time() - self.maxage #- random.randint(0, self.maxage) # 12 hours
+            # info about the cache file
             cachedata = os.stat(self.cachefile)
+            # age of the cache
             cacheage = time.time() - cachedata.st_mtime
             log.debug("cache age: %s max age: %s" % (cacheage, self.maxage))
             if cacheage > self.maxage: return False
@@ -67,20 +70,20 @@ class JavaAppScan(object):
         log.debug('evalPorts')
         if self.useCache() is True:
             try: 
-                log.debug('reading cached data')
+                #log.debug('checking cached data')
                 self.readCache()
             # start over if needed
             except: 
-                log.debug('error reading cache, rescanning')
-                self.scanPorts(True)
+                #log.debug('error checking cache, rescanning')
+                self.scanPorts()
                 self.writeCache()
         else: 
             log.debug('cache doesn\'t exist or is too old, rescanning')
-            self.scanPorts(True)
+            self.scanPorts()
             self.writeCache()
     
-    def scanPorts(self, eval=False):
-        '''return list of open ports within range'''
+    def scanPorts(self):
+        ''' scan port range with nmap and build dictionary of JMX ports'''
         log.debug('scanning ports: %s on %s' % (self.portrange, self.ipaddr) )
         args = [zenPath('libexec', 'nmap'),'-sS','-p',self.portrange,self.ipaddr]
         lines = getExecOutput(args, self.timeout)
@@ -90,29 +93,16 @@ class JavaAppScan(object):
                 port, state, service = info
                 port = port.split('/')[0]
                 if state == "open":
-                    if eval is True: self.portdict[port] = self.testPort(port)
-                    else: self.portdict[port] = getInfo()
+                    # test the port 
+                    info = self.proxy.connectEval(self.ipaddr, port, self.username, self.password) #self.testPort(port)
+                    if info is not None: self.portdict[port] = info
     
     def testPort(self, port):
-        ''''''
+        ''' test and return status of the port'''
         log.debug("testing connection to port: %s" % port)
         start = time.time()
+        # get data dic
         status = self.proxy.connectEval(self.ipaddr, port, self.username, self.password)
         log.debug("port %s test completed in %0.1fs" % (port, (time.time() - start)))
         return status
-    
-    def beanExists(self, port, mbean, protocol=None):
-        '''decide whether a given mbean exists'''
-        self.proxy.checkConnect(self.ipaddr, port, self.username, self.password, protocol)
-        searchresult = self.proxy.proxy.request(type='search', mbean=mbean)
-        if 'value' in searchresult.keys() and len(searchresult['value']) > 0: return True
-        return False
-    
-    def getBeanAttributeValues(self, port, mbean, attributes, protocol=None):
-        '''return list of values for given mbeans'''
-        result = {}
-        self.proxy.checkConnect(self.ipaddr, port, self.username, self.password, protocol)
-        for attr in attributes:
-            output = self.proxy.proxy.request(type='read', mbean=mbean, attribute=attr)
-            if 'value' in output.keys(): result[attr] = output['value']
-        return result
+

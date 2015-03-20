@@ -24,7 +24,8 @@ def getMBeanDef(version, root, base, component, singular, plural):
                                   'mbean': addProperty('MBean',optional=False),
                                   'fullpath': addProperty('Path'),
                                   'protocol': addProperty('Protocol'),
-                                  'eventClass' : getEventClass('/Perf/Java')
+                                  'eventClass' : getEventClass('/Perf/Java'),
+                                  'productKey' : getProductClass('Java'),
                                   }
     return data
 
@@ -151,6 +152,7 @@ addDefinitionSelfComponentRelation(JavaAppDefinition,
                           'ipservice',  ToOne, 'Products.ZenModel.IpService', 'port',
                           'IP Service', 'port')
 
+# too hard to try to parse the java command line args b/c of the 128 character path limit, so go by common port
 def setOsprocess(ob, name=''): 
     # first find the ipservice object
     #log.info("setting osprocess for %s" % ob.id)
