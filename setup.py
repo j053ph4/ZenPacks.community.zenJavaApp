@@ -5,7 +5,7 @@
 NAME = "ZenPacks.community.zenJavaApp"
 VERSION = "3.0"
 AUTHOR = "Joseph Anderson"
-LICENSE = "GPLv2+"
+LICENSE = "Apache"
 NAMESPACE_PACKAGES = ['ZenPacks', 'ZenPacks.community']
 PACKAGES = ['ZenPacks', 'ZenPacks.community', 'ZenPacks.community.zenJavaApp']
 INSTALL_REQUIRES = ['ZenPacks.zenoss.ZenJMX', 'ZenPacks.community.ConstructionKit>=3.0']
