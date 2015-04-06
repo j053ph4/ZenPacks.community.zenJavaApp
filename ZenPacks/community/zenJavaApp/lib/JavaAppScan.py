@@ -72,6 +72,8 @@ class JavaAppScan(object):
             try: 
                 #log.debug('checking cached data')
                 self.readCache()
+                self.checkPortDict()
+                self.writeCache()
             # start over if needed
             except: 
                 #log.debug('error checking cache, rescanning')
@@ -81,6 +83,13 @@ class JavaAppScan(object):
             log.debug('cache doesn\'t exist or is too old, rescanning')
             self.scanPorts()
             self.writeCache()
+    
+    def checkPortDict(self):
+        ''' update/validate entries in port dictionary'''
+        for port in self.portdict.keys():
+            info = self.proxy.connectEval(self.ipaddr, port, self.username, self.password)
+            if info is not None: self.portdict[port] = info
+            else: self.portdict.pop(port)
     
     def scanPorts(self):
         ''' scan port range with nmap and build dictionary of JMX ports'''
